@@ -1,0 +1,8 @@
+[workspace]
+resolver = "2"
+members = [
+    "tools/cargo-bin",
+]
+
+[workspace.metadata.bin]
+polytest = { git = "https://github.com/joe-p/polytest", version = "*" }

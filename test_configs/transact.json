@@ -68,9 +68,6 @@
         "decode without prefix": {
           "desc": "A transaction without TX prefix and valid fields is decoded properly"
         },
-        "decode signed transaction": {
-          "desc": "A transaction with a valid signature is decoded properly"
-        },
         "get encoded transaction type": {
           "desc": "The transaction type of an encoded transaction can be retrieved"
         },

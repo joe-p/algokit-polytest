@@ -105,12 +105,7 @@
   },
   "target": {
     "pytest": {
-      // TODO: This will eventually need to be "../../" assuming the submodule will be at the repo root
-      "out_dir": "../packages/algokit_transact/tests"
-    },
-    "vitest": {
-      // TODO: This will eventually need to be "../../" assuming the submodule will be at the repo root
-      "out_dir": "../packages/algokit_transact/__test__"
+      "out_dir": "../../tests"
     }
   },
   "document": {

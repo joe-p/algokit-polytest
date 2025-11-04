@@ -1,0 +1,247 @@
+{
+  "name": "algokit_transact Test Plan",
+  "package_name": "algod_client",
+  "suite": {
+    "GET /debug/settings/config": {
+      "desc": "Tests for the /debug/settings/config endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /debug/settings/pprof": {
+      "desc": "Tests for the /debug/settings/pprof endpoint",
+      "groups": ["Common Tests"]
+    },
+    "PUT /debug/settings/pprof": {
+      "desc": "Tests for the /debug/settings/pprof endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /genesis": {
+      "desc": "Tests for the /genesis endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /health": {
+      "desc": "Tests for the /health endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /metrics": {
+      "desc": "Tests for the /metrics endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /ready": {
+      "desc": "Tests for the /ready endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /swagger.json": {
+      "desc": "Tests for the /swagger.json endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /v2/accounts/{address}": {
+      "desc": "Tests for the /v2/accounts/{address} endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /v2/accounts/{address}/applications/{application-id}": {
+      "desc": "Tests for the /v2/accounts/{address}/applications/{application-id} endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /v2/accounts/{address}/assets": {
+      "desc": "Tests for the /v2/accounts/{address}/assets endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /v2/accounts/{address}/assets/{asset-id}": {
+      "desc": "Tests for the /v2/accounts/{address}/assets/{asset-id} endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /v2/accounts/{address}/transactions/pending": {
+      "desc": "Tests for the /v2/accounts/{address}/transactions/pending endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /v2/applications/{application-id}": {
+      "desc": "Tests for the /v2/applications/{application-id} endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /v2/applications/{application-id}/box": {
+      "desc": "Tests for the /v2/applications/{application-id}/box endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /v2/applications/{application-id}/boxes": {
+      "desc": "Tests for the /v2/applications/{application-id}/boxes endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /v2/assets/{asset-id}": {
+      "desc": "Tests for the /v2/assets/{asset-id} endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /v2/blocks/{round}": {
+      "desc": "Tests for the /v2/blocks/{round} endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /v2/blocks/{round}/hash": {
+      "desc": "Tests for the /v2/blocks/{round}/hash endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /v2/blocks/{round}/lightheader/proof": {
+      "desc": "Tests for the /v2/blocks/{round}/lightheader/proof endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /v2/blocks/{round}/logs": {
+      "desc": "Tests for the /v2/blocks/{round}/logs endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /v2/blocks/{round}/transactions/{txid}/proof": {
+      "desc": "Tests for the /v2/blocks/{round}/transactions/{txid}/proof endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /v2/blocks/{round}/txids": {
+      "desc": "Tests for the /v2/blocks/{round}/txids endpoint",
+      "groups": ["Common Tests"]
+    },
+    "POST /v2/catchup/{catchpoint}": {
+      "desc": "Tests for the /v2/catchup/{catchpoint} endpoint",
+      "groups": ["Common Tests"]
+    },
+    "DELETE /v2/catchup/{catchpoint}": {
+      "desc": "Tests for the /v2/catchup/{catchpoint} endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /v2/deltas/txn/group/{id}": {
+      "desc": "Tests for the /v2/deltas/txn/group/{id} endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /v2/deltas/{round}": {
+      "desc": "Tests for the /v2/deltas/{round} endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /v2/deltas/{round}/txn/group": {
+      "desc": "Tests for the /v2/deltas/{round}/txn/group endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /v2/devmode/blocks/offset": {
+      "desc": "Tests for the /v2/devmode/blocks/offset endpoint",
+      "groups": ["Common Tests"]
+    },
+    "POST /v2/devmode/blocks/offset/{offset}": {
+      "desc": "Tests for the /v2/devmode/blocks/offset/{offset} endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /v2/experimental": {
+      "desc": "Tests for the /v2/experimental endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /v2/ledger/supply": {
+      "desc": "Tests for the /v2/ledger/supply endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /v2/ledger/sync": {
+      "desc": "Tests for the /v2/ledger/sync endpoint",
+      "groups": ["Common Tests"]
+    },
+    "DELETE /v2/ledger/sync": {
+      "desc": "Tests for the /v2/ledger/sync endpoint",
+      "groups": ["Common Tests"]
+    },
+    "POST /v2/ledger/sync/{round}": {
+      "desc": "Tests for the /v2/ledger/sync/{round} endpoint",
+      "groups": ["Common Tests"]
+    },
+    "POST /v2/participation": {
+      "desc": "Tests for the /v2/participation endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /v2/participation": {
+      "desc": "Tests for the /v2/participation endpoint",
+      "groups": ["Common Tests"]
+    },
+    "POST /v2/participation/generate/{address}": {
+      "desc": "Tests for the /v2/participation/generate/{address} endpoint",
+      "groups": ["Common Tests"]
+    },
+    "POST /v2/participation/{participation-id}": {
+      "desc": "Tests for the /v2/participation/{participation-id} endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /v2/participation/{participation-id}": {
+      "desc": "Tests for the /v2/participation/{participation-id} endpoint",
+      "groups": ["Common Tests"]
+    },
+    "DELETE /v2/participation/{participation-id}": {
+      "desc": "Tests for the /v2/participation/{participation-id} endpoint",
+      "groups": ["Common Tests"]
+    },
+    "POST /v2/shutdown": {
+      "desc": "Tests for the /v2/shutdown endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /v2/stateproofs/{round}": {
+      "desc": "Tests for the /v2/stateproofs/{round} endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /v2/status": {
+      "desc": "Tests for the /v2/status endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /v2/status/wait-for-block-after/{round}": {
+      "desc": "Tests for the /v2/status/wait-for-block-after/{round} endpoint",
+      "groups": ["Common Tests"]
+    },
+    "POST /v2/teal/compile": {
+      "desc": "Tests for the /v2/teal/compile endpoint",
+      "groups": ["Common Tests"]
+    },
+    "POST /v2/teal/disassemble": {
+      "desc": "Tests for the /v2/teal/disassemble endpoint",
+      "groups": ["Common Tests"]
+    },
+    "POST /v2/teal/dryrun": {
+      "desc": "Tests for the /v2/teal/dryrun endpoint",
+      "groups": ["Common Tests"]
+    },
+    "POST /v2/transactions": {
+      "desc": "Tests for the /v2/transactions endpoint",
+      "groups": ["Common Tests"]
+    },
+    "POST /v2/transactions/async": {
+      "desc": "Tests for the /v2/transactions/async endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /v2/transactions/params": {
+      "desc": "Tests for the /v2/transactions/params endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /v2/transactions/pending": {
+      "desc": "Tests for the /v2/transactions/pending endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /v2/transactions/pending/{txid}": {
+      "desc": "Tests for the /v2/transactions/pending/{txid} endpoint",
+      "groups": ["Common Tests"]
+    },
+    "POST /v2/transactions/simulate": {
+      "desc": "Tests for the /v2/transactions/simulate endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /versions": {
+      "desc": "Tests for the /versions endpoint",
+      "groups": ["Common Tests"]
+    }
+  },
+  "group": {
+    "Common Tests": {
+      "desc": "Common tests for all endpoints",
+      "test": {
+        "Basic request and response valudation": {
+          "desc": "Given a known request validate that the same request can be made using our models. Then, validate that our response model aligns with the known response"
+        }
+      }
+    }
+  },
+  "target": {
+    "pytest": {
+      // TODO: Determine actual test directory
+      "out_dir": "tmp_tests"
+    }
+  },
+  "document": {
+    "markdown": {
+      "out_file": "../docs/test_plans/algod_client.md"
+    }
+  }
+}

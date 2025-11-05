@@ -1,0 +1,119 @@
+{
+  "name": "kmd_client Test Plan",
+  "package_name": "kmd_client",
+  "suite": {
+    "GET /swagger.json": {
+      "desc": "Tests for the GET /swagger.json endpoint",
+      "groups": ["Common Tests"]
+    },
+    "GET /versions": {
+      "desc": "Tests for the GET /versions endpoint",
+      "groups": ["Common Tests"]
+    },
+    "POST /v1/key": {
+      "desc": "Tests for the POST /v1/key endpoint - Generate a key",
+      "groups": ["Common Tests"]
+    },
+    "DELETE /v1/key": {
+      "desc": "Tests for the DELETE /v1/key endpoint - Delete a key",
+      "groups": ["Common Tests"]
+    },
+    "POST /v1/key/export": {
+      "desc": "Tests for the POST /v1/key/export endpoint - Export a key",
+      "groups": ["Common Tests"]
+    },
+    "POST /v1/key/import": {
+      "desc": "Tests for the POST /v1/key/import endpoint - Import a key",
+      "groups": ["Common Tests"]
+    },
+    "POST /v1/key/list": {
+      "desc": "Tests for the POST /v1/key/list endpoint - List keys in a wallet",
+      "groups": ["Common Tests"]
+    },
+    "POST /v1/master-key/export": {
+      "desc": "Tests for the POST /v1/master-key/export endpoint - Export master derivation key",
+      "groups": ["Common Tests"]
+    },
+    "DELETE /v1/multisig": {
+      "desc": "Tests for the DELETE /v1/multisig endpoint - Delete a multisig",
+      "groups": ["Common Tests"]
+    },
+    "POST /v1/multisig/export": {
+      "desc": "Tests for the POST /v1/multisig/export endpoint - Export a multisig",
+      "groups": ["Common Tests"]
+    },
+    "POST /v1/multisig/import": {
+      "desc": "Tests for the POST /v1/multisig/import endpoint - Import a multisig",
+      "groups": ["Common Tests"]
+    },
+    "POST /v1/multisig/list": {
+      "desc": "Tests for the POST /v1/multisig/list endpoint - List multisigs in a wallet",
+      "groups": ["Common Tests"]
+    },
+    "POST /v1/multisig/sign": {
+      "desc": "Tests for the POST /v1/multisig/sign endpoint - Sign a transaction with a multisig",
+      "groups": ["Common Tests"]
+    },
+    "POST /v1/multisig/signprogram": {
+      "desc": "Tests for the POST /v1/multisig/signprogram endpoint - Sign a program with a multisig",
+      "groups": ["Common Tests"]
+    },
+    "POST /v1/program/sign": {
+      "desc": "Tests for the POST /v1/program/sign endpoint - Sign a program",
+      "groups": ["Common Tests"]
+    },
+    "POST /v1/transaction/sign": {
+      "desc": "Tests for the POST /v1/transaction/sign endpoint - Sign a transaction",
+      "groups": ["Common Tests"]
+    },
+    "POST /v1/wallet": {
+      "desc": "Tests for the POST /v1/wallet endpoint - Create a wallet",
+      "groups": ["Common Tests"]
+    },
+    "POST /v1/wallet/info": {
+      "desc": "Tests for the POST /v1/wallet/info endpoint - Get wallet info",
+      "groups": ["Common Tests"]
+    },
+    "POST /v1/wallet/init": {
+      "desc": "Tests for the POST /v1/wallet/init endpoint - Initialize a wallet handle",
+      "groups": ["Common Tests"]
+    },
+    "POST /v1/wallet/release": {
+      "desc": "Tests for the POST /v1/wallet/release endpoint - Release a wallet handle",
+      "groups": ["Common Tests"]
+    },
+    "POST /v1/wallet/rename": {
+      "desc": "Tests for the POST /v1/wallet/rename endpoint - Rename a wallet",
+      "groups": ["Common Tests"]
+    },
+    "POST /v1/wallet/renew": {
+      "desc": "Tests for the POST /v1/wallet/renew endpoint - Renew a wallet handle",
+      "groups": ["Common Tests"]
+    },
+    "GET /v1/wallets": {
+      "desc": "Tests for the GET /v1/wallets endpoint - List wallets",
+      "groups": ["Common Tests"]
+    }
+  },
+  "group": {
+    "Common Tests": {
+      "desc": "Common tests for all endpoints",
+      "test": {
+        "Basic request and response valudation": {
+          "desc": "Given a known request validate that the same request can be made using our models. Then, validate that our response model aligns with the known response"
+        }
+      }
+    }
+  },
+  "target": {
+    "pytest": {
+      // TODO: Determine actual test directory
+      "out_dir": "tmp_tests"
+    }
+  },
+  "document": {
+    "markdown": {
+      "out_file": "../docs/test_plans/kmd_client.md"
+    }
+  }
+}

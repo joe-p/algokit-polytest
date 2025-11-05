@@ -99,8 +99,10 @@
   },
   "target": {
     "pytest": {
-      // TODO: Determine actual test directory
-      "out_dir": "tmp_tests"
+      "out_dir": "../../tests/modules/indexer_client"
+    },
+    "vitest": {
+      "out_dir": "../../packages/indexer_client/tests"
     }
   },
   "document": {

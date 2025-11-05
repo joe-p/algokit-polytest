@@ -107,8 +107,10 @@
   },
   "target": {
     "pytest": {
-      // TODO: Determine actual test directory
-      "out_dir": "tmp_tests"
+      "out_dir": "../../tests/modules/kmd_client"
+    },
+    "vitest": {
+      "out_dir": "../../packages/kmd_client/tests"
     }
   },
   "document": {

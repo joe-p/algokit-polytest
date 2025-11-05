@@ -235,8 +235,10 @@
   },
   "target": {
     "pytest": {
-      // TODO: Determine actual test directory
-      "out_dir": "tmp_tests"
+      "out_dir": "../../tests/modules/algod_client"
+    },
+    "vitest": {
+      "out_dir": "../../packages/algod_client/tests"
     }
   },
   "document": {

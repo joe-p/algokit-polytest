@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "MSW + Fastify mock server for multi-language testing",
   "type": "module",
-  "main": "server.ts",
+  "main": "src/server.ts",
   "scripts": {
-    "start": "tsx server.ts"
+    "start": "tsx src/server.ts"
   },
   "keywords": ["msw", "mock", "server", "testing"],
   "author": "",

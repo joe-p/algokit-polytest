@@ -62,6 +62,9 @@ async function getHarHandlers(): Promise<HttpHandler[]> {
   return harHandlers;
 }
 
+// Layer 2: HAR recordings
+const harHandlers = await getHarHandlers();
+
 // Layer 3: OpenAPI-generated handlers (baseline)
 // Modify the spec to use our mock server URL
 const mockSpec = {
@@ -69,9 +72,6 @@ const mockSpec = {
   servers: [{ url: "http://mock" }],
 };
 const openApiHandlers = await fromOpenApi(mockSpec as any);
-
-// Layer 2: HAR recordings
-const harHandlers = await getHarHandlers();
 
 export const handlers: HttpHandler[] = [
   // Layer 1: Custom handlers (highest priority)

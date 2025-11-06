@@ -4,7 +4,12 @@ import { customHandlers } from './handlers/custom/index.js';
 import algodSpec from '../algod.oas3.json' assert { type: 'json' };
 
 // Layer 3: OpenAPI-generated handlers (baseline)
-const openApiHandlers = await fromOpenApi(algodSpec as any);
+// Modify the spec to use our mock server URL
+const mockSpec = {
+  ...algodSpec,
+  servers: [{ url: 'http://mock' }]
+};
+const openApiHandlers = await fromOpenApi(mockSpec as any);
 
 // Layer 2: HAR recordings (will be added when HAR files are available)
 // import { fromHar } from '@mswjs/source/har';

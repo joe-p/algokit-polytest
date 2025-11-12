@@ -8,23 +8,23 @@ Polly.register(FetchAdapter);
 
 export function getPolly(
   name: string,
-  config: { mode: "record-new" | "record-overwrite" | "replay" },
+  config: { mode: "record-new" | "record-overwrite" | "replay" }
 ) {
   const pollyConfig: PollyConfig = {
     adapters: ["fetch"],
     persister: "fs",
     persisterOptions: {
       fs: {
-        recordingsDir: path.resolve(__dirname, "../recordings"),
-      },
+        recordingsDir: path.resolve(__dirname, "../recordings")
+      }
     },
     matchRequestsBy: {
       method: true,
       url: true, // includes query params
       headers: true,
       body: true,
-      order: false,
-    },
+      order: false
+    }
   };
 
   if (config.mode === "record-new") {
@@ -46,7 +46,7 @@ export function getPolly(
   const problematicHeaders = ["content-encoding", "content-length", "vary"];
   polly.server.any().on("beforeReplay", (_req, rec) => {
     rec.response.headers = rec.response.headers.filter(
-      (h: any) => !problematicHeaders.includes(h.name.toLowerCase()),
+      (h: any) => !problematicHeaders.includes(h.name.toLowerCase())
     );
   });
 

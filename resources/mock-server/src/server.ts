@@ -21,11 +21,11 @@ export async function startServer(): Promise<ServerInstance> {
               target: "pino-pretty",
               options: {
                 translateTime: "HH:MM:ss Z",
-                ignore: "pid,hostname",
-              },
+                ignore: "pid,hostname"
+              }
             }
-          : undefined,
-    },
+          : undefined
+    }
   });
 
   // Catch-all proxy through PollyJS
@@ -34,7 +34,7 @@ export async function startServer(): Promise<ServerInstance> {
     const url = new URL(request.url, "http://localhost:4001");
 
     fastify.log.debug(
-      `[Fastify] Incoming request: ${request.method} ${request.url}`,
+      `[Fastify] Incoming request: ${request.method} ${request.url}`
     );
     fastify.log.debug(`[Fastify] Transformed to: ${request.method} ${url}`);
 
@@ -48,7 +48,7 @@ export async function startServer(): Promise<ServerInstance> {
     }
 
     fastify.log.debug(
-      `[Fastify] Forwarded headers: ${JSON.stringify(request.headers)}`,
+      `[Fastify] Forwarded headers: ${JSON.stringify(request.headers)}`
     );
 
     const response = await fetch(url, {
@@ -57,7 +57,7 @@ export async function startServer(): Promise<ServerInstance> {
       body:
         request.method !== "GET" && request.method !== "HEAD"
           ? JSON.stringify(request.body)
-          : undefined,
+          : undefined
     });
 
     const data = await response.text();
@@ -83,7 +83,7 @@ export async function startServer(): Promise<ServerInstance> {
   // Start listening without awaiting (non-blocking)
   const listenPromise = fastify.listen({
     port,
-    host: "0.0.0.0",
+    host: "0.0.0.0"
   });
 
   await fastify.ready();
@@ -94,6 +94,6 @@ export async function startServer(): Promise<ServerInstance> {
     close: async () => {
       await fastify.close();
     },
-    listen: listenPromise,
+    listen: listenPromise
   };
 }

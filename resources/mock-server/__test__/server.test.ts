@@ -1,16 +1,20 @@
 import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import { startServer, type ServerInstance } from "../src/server";
-import { Algodv2 } from "algosdk";
+import { Algodv2, Indexer, Kmd } from "algosdk";
 
-const NO_RECORDING = "Recording for the following request is not found";
+const PollyError = "PollyError";
 
-describe("PollyJS Server", () => {
-  let server: ServerInstance;
+describe("Algod Mock Server", () => {
+  let algodServer: ServerInstance;
   let algodClient: Algodv2;
 
   beforeAll(async () => {
-    server = await startServer();
-    algodClient = new Algodv2("a".repeat(64), "http://localhost", server.port);
+    algodServer = await startServer("algod");
+    algodClient = new Algodv2(
+      "a".repeat(64),
+      "http://localhost",
+      algodServer.port
+    );
   });
 
   it("should work with the recorded status request", async () => {
@@ -19,15 +23,125 @@ describe("PollyJS Server", () => {
   });
 
   it("should fail with unrecorded endpoint", async () => {
-    await expect(algodClient.genesis().do()).rejects.toThrowError(NO_RECORDING);
+    try {
+      await algodClient.genesis().do();
+    } catch (error: any) {
+      expect(Buffer.from(error.response.body).toString()).toContain(PollyError);
+      return;
+    }
+
+    expect.unreachable("PollyJS should have thrown an error");
   });
 
   it("should fail with a different header", async () => {
-    const client = new Algodv2("b".repeat(64), "http://localhost", server.port);
-    await expect(client.status().do()).rejects.toThrowError(NO_RECORDING);
+    const client = new Algodv2(
+      "b".repeat(64),
+      "http://localhost",
+      algodServer.port
+    );
+    try {
+      await client.status().do();
+    } catch (error: any) {
+      expect(Buffer.from(error.response.body).toString()).toContain(PollyError);
+      return;
+    }
+
+    expect.unreachable("PollyJS should have thrown an error");
   });
 
   afterAll(async () => {
-    await server.close();
+    await algodServer.close();
+  });
+});
+
+describe("Indexer Mock Server", () => {
+  let indexerServer: ServerInstance;
+  let indexerClient: Indexer;
+
+  beforeAll(async () => {
+    indexerServer = await startServer("indexer");
+    indexerClient = new Indexer(
+      "a".repeat(64),
+      "http://localhost",
+      indexerServer.port
+    );
+  });
+
+  it("should work with the recorded health check request", async () => {
+    const status = await indexerClient.makeHealthCheck().do();
+    expect(status).matchSnapshot();
+  });
+
+  it("should fail with unrecorded endpoint", async () => {
+    try {
+      await indexerClient.lookupBlock(1000).do();
+    } catch (error: any) {
+      expect(Buffer.from(error.response.body).toString()).toContain(PollyError);
+      return;
+    }
+
+    expect.unreachable("PollyJS should have thrown an error");
+  });
+
+  it("should fail with a different header", async () => {
+    const client = new Indexer(
+      "b".repeat(64),
+      "http://localhost",
+      indexerServer.port
+    );
+    try {
+      await client.makeHealthCheck().do();
+    } catch (error: any) {
+      expect(Buffer.from(error.response.body).toString()).toContain(PollyError);
+      return;
+    }
+
+    expect.unreachable("PollyJS should have thrown an error");
+  });
+
+  afterAll(async () => {
+    await indexerServer.close();
+  });
+});
+
+describe("KMD Mock Server", () => {
+  let kmdServer: ServerInstance;
+  let kmdClient: Kmd;
+
+  beforeAll(async () => {
+    kmdServer = await startServer("kmd");
+    kmdClient = new Kmd("a".repeat(64), "http://localhost", kmdServer.port);
+  });
+
+  it("should work with the recorded list wallets request", async () => {
+    const status = await kmdClient.listWallets();
+    expect(status).matchSnapshot();
+  });
+
+  it("should fail with unrecorded endpoint", async () => {
+    try {
+      await kmdClient.versions();
+    } catch (error: any) {
+      expect(Buffer.from(error.response.body).toString()).toContain(PollyError);
+      return;
+    }
+
+    expect.unreachable("PollyJS should have thrown an error");
+  });
+
+  it("should fail with a different header", async () => {
+    const client = new Kmd("b".repeat(64), "http://localhost", kmdServer.port);
+    try {
+      await client.listWallets();
+    } catch (error: any) {
+      expect(Buffer.from(error.response.body).toString()).toContain(PollyError);
+      return;
+    }
+
+    expect.unreachable("PollyJS should have thrown an error");
+  });
+
+  afterAll(async () => {
+    await kmdServer.close();
   });
 });

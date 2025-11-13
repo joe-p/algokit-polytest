@@ -9,10 +9,10 @@ export type ServerInstance = {
   listen: Promise<string>;
 };
 
-const LOCALNET_PORTS = {
-  algod: 4001,
-  kmd: 4002,
-  indexer: 8980
+const TESTNET_URLS = {
+  algod: "https://testnet-api.4160.nodely.dev",
+  kmd: "http://localhost:4002", // KMD not available on public networks
+  indexer: "https://testnet-idx.4160.nodely.dev"
 };
 
 const DEFAULT_PORTS = {
@@ -42,10 +42,7 @@ export async function startServer(client: Client): Promise<ServerInstance> {
 
   // Catch-all proxy through PollyJS
   fastify.all("/*", async (request, reply) => {
-    const url = new URL(
-      request.url,
-      `http://localhost:${LOCALNET_PORTS[client]}`
-    );
+    const url = new URL(request.url, TESTNET_URLS[client]);
 
     fastify.log.debug(
       `[Fastify] Incoming request: ${request.method} ${request.url}`

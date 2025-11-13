@@ -172,7 +172,7 @@ async function algosdkKmdRequests() {
 }
 
 async function algosdkIndexerRequests() {
-  const indexer = new Indexer("a".repeat(64), "http://localhost", 8980);
+  const indexer = new Indexer("", "https://testnet-idx.4160.nodely.dev", 443);
   await indexer.makeHealthCheck().do();
 }
 

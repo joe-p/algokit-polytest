@@ -4,7 +4,11 @@ import { KmdClient } from "algosdk/client/kmd";
 
 async function algosdkAlgodRequests() {
   // TestNet configuration (using AlgoNode public API)
-  const algod = new Algodv2("", "https://testnet-api.4160.nodely.dev", 443);
+  const algod = new Algodv2(
+    "a".repeat(64),
+    "https://testnet-api.4160.nodely.dev",
+    443
+  );
 
   // ========================================
   // TEST DATA SOURCES:
@@ -68,7 +72,7 @@ async function algosdkAlgodRequests() {
   const delta = await algod.getLedgerStateDelta(round).do();
 
   // GET /v2/deltas/{round}/txn/group
-  //TODO: Find valid round
+  // TODO: Find valid round
   // const deltas = await algod
   //   .getTransactionGroupLedgerStateDeltasForRound(round2)
   //   .do();
@@ -172,12 +176,18 @@ async function algosdkKmdRequests() {
 }
 
 async function algosdkIndexerRequests() {
-  const indexer = new Indexer("", "https://testnet-idx.4160.nodely.dev", 443);
+  const indexer = new Indexer(
+    "a".repeat(64),
+    "https://testnet-idx.4160.nodely.dev",
+    443
+  );
   await indexer.makeHealthCheck().do();
 }
 
 export async function recordAlgosdkRequests(
-  client: "algod" | "kmd" | "indexer"
+  client: "algod" | "kmd" | "indexer",
+  mode: "record-new" | "record-overwrite" = "record-new",
+  recordingsDir?: string
 ) {
   let makeRequests;
 
@@ -191,5 +201,5 @@ export async function recordAlgosdkRequests(
     throw new Error(`Unknown client: ${client}`);
   }
 
-  await record(client, makeRequests);
+  await record(client, makeRequests, mode, recordingsDir);
 }

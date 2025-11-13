@@ -3,13 +3,14 @@ import { startServer, type ServerInstance } from "../src/server";
 import { Algodv2, Indexer, Kmd } from "algosdk";
 
 const PollyError = "PollyError";
+const NON_EXISTENT_ADDRESS = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAY5HFKQ";
 
 describe("Algod Mock Server", () => {
   let algodServer: ServerInstance;
   let algodClient: Algodv2;
 
   beforeAll(async () => {
-    algodServer = await startServer("algod");
+    algodServer = await startServer("algod", "replay");
     algodClient = new Algodv2(
       "a".repeat(64),
       "http://localhost",
@@ -24,7 +25,7 @@ describe("Algod Mock Server", () => {
 
   it("should fail with unrecorded endpoint", async () => {
     try {
-      await algodClient.genesis().do();
+      await algodClient.accountInformation(NON_EXISTENT_ADDRESS).do();
     } catch (error: any) {
       expect(Buffer.from(error.response.body).toString()).toContain(PollyError);
       return;
@@ -59,7 +60,7 @@ describe("Indexer Mock Server", () => {
   let indexerClient: Indexer;
 
   beforeAll(async () => {
-    indexerServer = await startServer("indexer");
+    indexerServer = await startServer("indexer", "replay");
     indexerClient = new Indexer(
       "a".repeat(64),
       "http://localhost",
@@ -109,7 +110,7 @@ describe("KMD Mock Server", () => {
   let kmdClient: Kmd;
 
   beforeAll(async () => {
-    kmdServer = await startServer("kmd");
+    kmdServer = await startServer("kmd", "replay");
     kmdClient = new Kmd("a".repeat(64), "http://localhost", kmdServer.port);
   });
 

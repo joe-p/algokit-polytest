@@ -21,8 +21,15 @@ const DEFAULT_PORTS = {
   indexer: 8002
 };
 
-export async function startServer(client: Client): Promise<ServerInstance> {
-  await recordAlgosdkRequests(client);
+export async function startServer(
+  client: Client,
+  mode: "record-new" | "record-overwrite" | "replay" = "replay",
+  recordingsDir?: string
+): Promise<ServerInstance> {
+  // Only record if not in replay mode
+  if (mode !== "replay") {
+    await recordAlgosdkRequests(client, mode, recordingsDir);
+  }
 
   const fastify = Fastify({
     logger: {

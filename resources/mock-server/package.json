@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "test": "bun vitest run"
+    "test": "vitest run"
   },
   "devDependencies": {
     "@types/bun": "latest",

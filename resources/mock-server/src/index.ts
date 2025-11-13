@@ -6,8 +6,10 @@ import path from "path";
 Polly.register(FSPersister);
 Polly.register(FetchAdapter);
 
+export type Client = "algod" | "kmd" | "indexer";
+
 export function getPolly(
-  name: string,
+  client: Client,
   config: { mode: "record-new" | "record-overwrite" | "replay" }
 ) {
   const pollyConfig: PollyConfig = {
@@ -39,7 +41,7 @@ export function getPolly(
     throw new Error(`Unknown mode: ${config.mode}`);
   }
 
-  const polly = new Polly(name, pollyConfig);
+  const polly = new Polly(client, pollyConfig);
 
   // Remove headers that may cause issues during replay. In particular, anything related to compression
   // should be removed.
@@ -53,8 +55,11 @@ export function getPolly(
   return polly;
 }
 
-export async function record(name: string, makeRequests: () => Promise<void>) {
-  const polly = getPolly(name, { mode: "record-new" });
+export async function record(
+  client: Client,
+  makeRequests: () => Promise<void>
+) {
+  const polly = getPolly(client, { mode: "record-new" });
   try {
     await makeRequests();
   } finally {
@@ -62,8 +67,11 @@ export async function record(name: string, makeRequests: () => Promise<void>) {
   }
 }
 
-export async function replay(name: string, makeRequests: () => Promise<void>) {
-  const polly = getPolly(name, { mode: "replay" });
+export async function replay(
+  client: Client,
+  makeRequests: () => Promise<void>
+) {
+  const polly = getPolly(client, { mode: "replay" });
 
   try {
     await makeRequests();

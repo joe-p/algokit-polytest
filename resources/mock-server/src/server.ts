@@ -1,6 +1,6 @@
 import type { HeadersInit } from "bun";
 import Fastify from "fastify";
-import { getPolly } from "./index";
+import { getPolly, type Client } from "./index";
 import { recordAlgosdkRequests } from "./record";
 
 export type ServerInstance = {
@@ -9,8 +9,20 @@ export type ServerInstance = {
   listen: Promise<string>;
 };
 
-export async function startServer(): Promise<ServerInstance> {
-  await recordAlgosdkRequests();
+const LOCALNET_PORTS = {
+  algod: 4001,
+  kmd: 4002,
+  indexer: 8980
+};
+
+const DEFAULT_PORTS = {
+  algod: 8000,
+  kmd: 8001,
+  indexer: 8002
+};
+
+export async function startServer(client: Client): Promise<ServerInstance> {
+  await recordAlgosdkRequests(client);
 
   const fastify = Fastify({
     logger: {
@@ -30,15 +42,25 @@ export async function startServer(): Promise<ServerInstance> {
 
   // Catch-all proxy through PollyJS
   fastify.all("/*", async (request, reply) => {
-    const polly = getPolly("algod", { mode: "replay" });
-    const url = new URL(request.url, "http://localhost:4001");
+    const polly = getPolly(client, { mode: "replay" });
+
+    const url = new URL(
+      request.url,
+      `http://localhost:${LOCALNET_PORTS[client]}`
+    );
 
     fastify.log.debug(
       `[Fastify] Incoming request: ${request.method} ${request.url}`
     );
     fastify.log.debug(`[Fastify] Transformed to: ${request.method} ${url}`);
 
-    const forwardHeaders = ["x-algo-api-token", "accept"];
+    const forwardHeaders = [
+      "x-algo-api-token",
+      "x-indexer-api-token",
+      "x-kmd-api-token",
+      "accept"
+    ];
+
     for (const [key, value] of Object.entries(request.headers)) {
       fastify.log.debug(`[Fastify] Request header: ${key} = ${value}`);
 
@@ -51,14 +73,22 @@ export async function startServer(): Promise<ServerInstance> {
       `[Fastify] Forwarded headers: ${JSON.stringify(request.headers)}`
     );
 
-    const response = await fetch(url, {
-      method: request.method,
-      headers: request.headers as HeadersInit,
-      body:
-        request.method !== "GET" && request.method !== "HEAD"
-          ? JSON.stringify(request.body)
-          : undefined
-    });
+    let response;
+    try {
+      response = await fetch(url, {
+        method: request.method,
+        headers: request.headers as HeadersInit,
+        body:
+          request.method !== "GET" && request.method !== "HEAD"
+            ? JSON.stringify(request.body)
+            : undefined
+      });
+    } catch (e) {
+      reply.status(500).send(JSON.stringify(e));
+      return;
+    } finally {
+      await polly.stop();
+    }
 
     const data = await response.text();
 
@@ -69,16 +99,15 @@ export async function startServer(): Promise<ServerInstance> {
     const preview = data.length > 200 ? data.substring(0, 200) + "..." : data;
     fastify.log.debug(`[PollyJS] Response preview: ${preview}`);
 
-    await polly.stop();
-
-    console.debug(response);
     reply
       .code(response.status)
       .headers(Object.fromEntries(response.headers.entries()))
       .send(data);
   });
 
-  const port = Number(process.env.PORT) || 8000;
+  const port =
+    Number(process.env[`${client.toUpperCase()}_PORT`]) ||
+    DEFAULT_PORTS[client];
 
   // Start listening without awaiting (non-blocking)
   const listenPromise = fastify.listen({

@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`PollyJS Server > should work with the recorded status request 1`] = `
+exports[`Algod Mock Server > should work with the recorded status request 1`] = `
 NodeStatusResponse {
   "catchpoint": "",
   "catchpointAcquiredBlocks": 0,
@@ -28,5 +28,40 @@ NodeStatusResponse {
   "upgradeVotes": undefined,
   "upgradeVotesRequired": undefined,
   "upgradeYesVotes": undefined,
+}
+`;
+
+exports[`Indexer Mock Server > should work with the recorded health check request 1`] = `
+HealthCheck {
+  "data": UntypedValue {
+    "data": Map {
+      "migration-required" => false,
+      "read-only-mode" => true,
+    },
+  },
+  "dbAvailable": true,
+  "errors": undefined,
+  "isMigrating": false,
+  "message": "0",
+  "round": 0n,
+  "version": "3.9.0",
+}
+`;
+
+exports[`KMD Mock Server > should work with the recorded list wallets request 1`] = `
+{
+  "wallets": [
+    {
+      "driver_name": "sqlite",
+      "driver_version": 1,
+      "id": "0bd36782f30300ed34c0e12a4476736c",
+      "mnemonic_ux": false,
+      "name": "unencrypted-default-wallet",
+      "supported_txs": [
+        "pay",
+        "keyreg",
+      ],
+    },
+  ],
 }
 `;

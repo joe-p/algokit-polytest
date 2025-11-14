@@ -5,8 +5,6 @@ import fs from "fs";
 import path from "path";
 
 const TEST_RECORDINGS_DIR = path.resolve(__dirname, "../recordings-test");
-const LOCALNET_ALGOD_URL = "http://localhost";
-const LOCALNET_ALGOD_PORT = 4001;
 
 describe("Recording Tests", () => {
   afterEach(async () => {
@@ -20,16 +18,16 @@ describe("Recording Tests", () => {
     // Create test recordings directory
     fs.mkdirSync(TEST_RECORDINGS_DIR, { recursive: true });
 
-    // Create recording with record-new
+    // Create recording with record-new using TestNet
     await record(
       "algod",
       async () => {
-        const client = new Algodv2(
+        const algod = new Algodv2(
           "a".repeat(64),
-          LOCALNET_ALGOD_URL,
-          LOCALNET_ALGOD_PORT
+          "https://testnet-api.4160.nodely.dev",
+          443
         );
-        await client.status().do();
+        await algod.status().do();
       },
       "record-new",
       TEST_RECORDINGS_DIR
